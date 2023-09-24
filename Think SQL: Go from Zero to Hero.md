@@ -107,3 +107,23 @@ UPDATE amazon_orders SET discount = 10;
 UPDATE amazon_orders SET discount = 10 WHERE order_id = 2;
 SELECT * FROM amazon_orders;
 ```
+## 3- SELECT AND WHERE STATEMENT
+```sql
+SELECT Top 5 * order_id,order_date FROM orders ORDER BY order_date;
+-- DISTINCT KEYWORD (To get the Distinct Value of a Keyword)
+SELECT DISTINCT ship_mode FROM orders;
+----------------Filters-----------------
+SELECT * FROM orders WHERE ship_mode = 'First Class';
+SELECT * FROM orders WHERE order_date = '2020-12-08';
+SELECT * FROM orders WHERE quantity = 5;
+SELECT * FROM orders WHERE order_date BETWEEN '2020-12-08' AND '2020-12-12' ORDER BY order_date DESC;
+SELECT * FROM orders WHERE ship_mode IN ('First Class', 'Same Day');
+SELECT * FROM orders WHERE ship_mode NOT IN ('First Class', 'Same Day');
+SELECT * FROM orders WHERE ship_mode = 'First Class' OR ship_mode = 'Same Day'; -- or filter always increase rows
+SELECT * FROM orders WHERE quantity > 5 AND order_date < '2020-11-08'; -- and filter always decrease the rows
+-----------Pattern Matching Like Operator---------------
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C%';
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE '%D';
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE '%C%';
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C%';
+```
