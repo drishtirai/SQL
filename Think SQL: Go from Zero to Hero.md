@@ -132,3 +132,12 @@ SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 
 SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C[^albo]%';
 SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C[a-f]%';
 ```
+## 4- SQL Filters Continue and Data Aggregation
+* Write an SQL to get all the orders where the customer's name has 'a' as the second character and 'd' as the fourth character(58 rows)  -- 
+```sql
+SELECT * FROM orders WHERE customer's name LIKE '_a%d%';
+```
+* Write a query to find the Top 5 orders with the highest sales in the furniture category.
+```sql
+SELECT TOP 5 * FROM orders WHERE category='Furniture' ORDER BY sales DESC;
+```
