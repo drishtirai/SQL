@@ -35,7 +35,7 @@ SELECT Top 1 * FROM amazon_orders;
 
 --Data Sorting
 SELECT * FROM amazo_orders
-ORDER BY order_date DESC;
+ORDER BY order_date DESC
 ORDER BY order_date DESC, product_name DESC;
 
 -- Data Type--
@@ -126,4 +126,9 @@ SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 
 SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE '%D';
 SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE '%C%';
 SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C%';
+---%--- > 0 or more any characters
+---_--- > one character
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C[albo]%';
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C[^albo]%';
+SELECT order_id, order_date, customer_name FROM orders WHERE customer_name LIKE 'C[a-f]%';
 ```
