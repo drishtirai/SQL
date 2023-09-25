@@ -141,3 +141,15 @@ SELECT * FROM orders WHERE customer's name LIKE '_a%d%';
 ```sql
 SELECT TOP 5 * FROM orders WHERE category='Furniture' ORDER BY sales DESC;
 ```
+* Filtering Null Values
+```sql
+SELECT * FRPM orders WHERE city IS NULL ;
+SELECT * FRPM orders WHERE city IS NOT NULL ;
+```
+* Aggregation
+```sql
+SELECT COUNT(*) AS cnt, SUM(sales) AS total_sales, MAX(sales) AS max_sales, MIN(profit) AS min_profit, AVG(profit) AS avg_profit FROM orders;
+-------------Group By----------------------
+SELECT region,COUNT(*) AS cnt, SUM(sales) AS total_sales, MAX(sales) AS max_sales, MIN(profit) AS min_profit, AVG(profit) AS avg_profit FROM orders GROUP BY region;
+
+```
