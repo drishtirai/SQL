@@ -151,6 +151,8 @@ SELECT * FRPM orders WHERE city IS NOT NULL ;
 SELECT COUNT(*) AS cnt, SUM(sales) AS total_sales, MAX(sales) AS max_sales, MIN(profit) AS min_profit, AVG(profit) AS avg_profit FROM orders;
 -------------Group By----------------------
 SELECT region,COUNT(*) AS cnt, SUM(sales) AS total_sales, MAX(sales) AS max_sales, MIN(profit) AS min_profit, AVG(profit) AS avg_profit FROM orders GROUP BY region;
-SELCT TOP 5 sub_category, sum(sales) AS total_sales FROM orders WHERE profit > 50 GROUP BY sub_category HAVING sub_category > 100000 ORDER BY total_sales DESC; 
-
+SELECT TOP 5 sub_category, sum(sales) AS total_sales FROM orders WHERE profit > 50 GROUP BY sub_category HAVING sub_category > 100000 ORDER BY total_sales DESC;
+------------------Count Function----------------------------
+SELECT COUNT(DISTINCT region), COUNT(*), COUNT(city) SUM(sales) FROM orders;
+--------Count Function does not count NULL values ANY Aggregate function will ignore the null value.----------
 ```
