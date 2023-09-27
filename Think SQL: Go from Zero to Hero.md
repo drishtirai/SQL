@@ -156,3 +156,17 @@ SELECT TOP 5 sub_category, sum(sales) AS total_sales FROM orders WHERE profit > 
 SELECT COUNT(DISTINCT region), COUNT(*), COUNT(city) SUM(sales) FROM orders;
 --------Count Function does not count NULL values ANY Aggregate function will ignore the null value.----------
 ```
+* Database Joins
+```sql
+CREATE TABLE returns(
+order_id VARCHAR(20),
+return_reason VARCHAR(20)
+);
+SELECT * INTO namastesql.dbo RETURNS FROM returns;
+SELECT o.order_id,r.return_reason FROM orders o INNER JOIN returns r ON o.order_id = r.order_id;
+SELECT o.order_id,r.return_reason FROM orders o LEFT JOIN returns r ON o.order_id = r.order_id;
+SELECT * FROM employee, dept ORDER BY employee.emp_id;
+SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e INNER JOIN dept d ON e.dept_id=d.dept_id;
+SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e RIGHT JOIN dept d ON e.dept_id=d.dept_id;
+SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e RIGHT JOIN dept d ON e.dept_id=d.dept_id;
+SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e FULL OUTER JOIN dept d ON e.dept_id=d.dept_id;
