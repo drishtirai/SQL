@@ -170,3 +170,58 @@ SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e INNER JOIN de
 SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e RIGHT JOIN dept d ON e.dept_id=d.dept_id;
 SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e RIGHT JOIN dept d ON e.dept_id=d.dept_id;
 SELECT e.emp_id, e.epm_name, e.dept_id, d.dep_name FROM employee e FULL OUTER JOIN dept d ON e.dept_id=d.dept_id;
+```
+* Date Function
+```sql
+SELECT order_id, order_date, DATEPART(year, order_date) AS year_of_order_date FROM orders;
+SELECT order_id, order_date, DATEPART(year, order_date) AS year_of_order_date FROM orders WHERE DATEPART(year, order_date)=2020;
+SELECT order_id, order_date, DATEPART(year, order_date) AS year_of_order_date, DATENAME(month, order_date) AS month_of_order_date;
+SELECT order_id,order_date, DATEADD(DAY, 5, order_date) AS oredr_date_5 FROM orders;
+SELECT order_id,order_date, DATEDIFF(DAY, oredr_date, ship_date) AS date_diff_days FROM orders;
+```
+* String Function
+```sql
+SELECT order_id, customer_name, LEN(customer_name) AS len_name FROM orders;
+---------- Len Function will count space, and special characters as well---------
+SELECT order_id, customer_name, LEFT(customer_name, 4) AS name_4 FROM orders;
+SELECT order_id, customer_name, RIGHT(customer_name, 5) AS name_5 FROM orders;
+SELECT order_id, customer_name, SUBSTRING(customer_name, 4, 5) AS substr45 FROM orders;
+SELECT order_id, customer_name, CHARINDEX(' ', customer_name) AS space_position FROM orders;
+SELECT order_id, customer_name, CHARINDEX('n', customer_name, 5) AS n_position FROM orders;
+SELECT order_id, customer_name, CONCAT(order_id,'-', customer_name) AS concat_string FROM orders;
+SELECT order_id, customer_name, REPLACE(order_id, 'CA', 'PB') AS replace_string FROM orders;
+SELECT order_id, customer_name, TRANSLATE(order_id, 'AG', 'TP') AS TRANSLATE_string FROM orders;
+SELECT order_id, customer_name, TRIM(' Ankit Bansal ') AS trim_string FROM orders;
+```
+* NULL Handling Function
+```sql
+SELECT order_id, city, ISNULL(city, 'unknown') AS new_city FROM orders WHERE city IS NULL;
+SELECT order_id, city, state, region, COALESCE(city, state, region, 'unknown') AS new_city FROM orders WHERE city IS NULL;
+SELECT TOP5 order_id, sales, CAST(sales AS INT), ROUND(sales, 1) AS sales_int FROM orders;
+```
+## 5- Set Function (UNION ALL won't remove duplicates but other set operations will remove duplicates)
+```sql
+CREATE TABLE(
+order_id INT,
+region VARCHAR(10),
+sales INT
+);
+INSERT INTO orders_west VALUES(1, 'west', 100),(2,'west',200);
+INSERT INTO orders_east VALUES(3, 'east', 100),(4,'east',300);
+SELECT * FROM orders_west UNION ALL SELECT * FROM orders_east;
+-----------UNION Will remove the duplicates----------------
+SELECT * FROM orders_west UNION SELECT * FROM orders_east;
+---------------Intersect Operator-------------
+SELECT * FROM orders_west INTERSECT SELECT * FROM orders_east;
+--------------MINUS Operation will----------------
+SELECT * FROM orders_west MINUS SELECT * FROM orders_east;
+
+```
+* Case Statement
+```sql
+SELECT order_id, profit, CASE WHEN profit<100 THEN 'Low Profit' WHEN profit<200 THEN 'Medium Profit' WHEN profit<300 THEN 'High Profit' ELSE 'Very High Profit' END AS profit_category FROM orders;
+```
+## 6- SQL Interview Questions
+```sql
+
+```
