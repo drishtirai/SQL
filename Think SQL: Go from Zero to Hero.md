@@ -112,7 +112,7 @@ SELECT * FROM amazon_orders;
 SELECT Top 5 * order_id,order_date FROM orders ORDER BY order_date;
 -- DISTINCT KEYWORD (To get the Distinct Value of a Keyword)
 SELECT DISTINCT ship_mode FROM orders;
-----------------Filters-----------------
+----------------Filters----------------
 SELECT * FROM orders WHERE ship_mode = 'First Class';
 SELECT * FROM orders WHERE order_date = '2020-12-08';
 SELECT * FROM orders WHERE quantity = 5;
