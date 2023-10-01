@@ -1,3 +1,4 @@
+### When we are using the FROM Clause it is mandatory or necessary to use an alias(AS) in a query but when we are using any other clause like having, when, etc... not necessary to use an alias(AS). 
 ## 1 - Introduction to  SQL and installation of SQL server_client
 
 * Create the table for amazon_orders -- 
@@ -222,6 +223,60 @@ SELECT * FROM orders_west MINUS SELECT * FROM orders_east;
 SELECT order_id, profit, CASE WHEN profit<100 THEN 'Low Profit' WHEN profit<200 THEN 'Medium Profit' WHEN profit<300 THEN 'High Profit' ELSE 'Very High Profit' END AS profit_category FROM orders;
 ```
 ## 6- SQL Interview Questions
+* Write a query to produce the below output from icc_world_cup table. (team_name, no_of_matches_played, no_of_wins, no_of_losses.)
+```sql
+CREATE TABLE(
+team_1 VARCHAR(20),
+team_2 VARCHAR(20),
+Winner VARCHAR(20)
+);
+INSERT INTO icc_world_cup VALUES('India', 'SL', 'India');
+INSERT INTO icc_world_cup VALUES('SL', 'Aus', 'Aus');
+INSERT INTO icc_world_cup VALUES('SA', 'Eng', 'Eng');
+INSERT INTO icc_world_cup VALUES('Eng', 'NZ', 'NZ');
+INSERT INTO icc_world_cup VALUES('Aus', 'India', 'India');
+SELECT * FROM icc_world_cup;
+SELECT team_name, COUNT(1) AS matches_played,  SUM(win_flag) matches_won, COUNT(1)-SUM(win_flag) AS lost_matches FROM (SELECT team_1 AS team_name, winner, CASE WHEN team_1 = winner THEN 1 ELSE 0 END AS win_flag FROM icc_world_cup UNION ALL SELECT team_2 AS team_name, CASE WHEN team_2 = winner THEN 1 ELSE 0 END AS win_flag FROM icc_world_cup) A GROUP BY team_name;
+```
+* View Table (It is a virtual table)(TimeTable will hold the data but ViewTable will not holding data)
+```sql
+CREATE VIEW orders_vw AS SELECT * FROM orders;
+SELECT * FROM orders_vw;
+```
+* Referential Integrity Constraint (It will get created when there is the primary key in the table.)
+```sql
+SELECT * FROM emp;
+SELECT * FROM dept;
+CREATE TABLE emp(
+emp_id INTEGER,
+emp_name VARCHAR(20),
+dept_id INT REFERENCES dept(dept_id)
+);
+INSERTINTO emp VALUES(1,'Ankit',100);
+SELECT * FROM emp;
+SELECT * FROM dept;
+INSERTINTO emp VALUES(1,'Ankit',500);
+```
+* Identity (It will give incremental values so in the below code id will be auto-incremented)
+```sql
+CREATE TABLE dept1(
+id INT IDENTITY(1,1),
+dept_id INT,
+dep_name VARCHAR(10)
+);
+INSERT INTO dept1(dep_id, dep_name) VALUES(100,'HR');
+INSERT INTO dept1(dep_id, dep_name) VALUES(200,'Analytics');
+SELECT * FROM dept1;
+```
+## 7- SUBQUERY And CTEs
+* SUBQUERY
+```sql
+SELECT AVG(order_sales)AS avg_orders_value FROM (SELECT order_id, SUM(sales) AS order_sales FROM orders GROUP BY order_id) AS orders_aggregated;
+SELECT * FROM employee WHERE dept_id NOT IN(SELECT dept_id FROM dept);
+SELECT A.*, B.* FROM (SELECT order_id, SUM(sales) AS order_sales FROM orders GROUP BY order_id) A INNER JOIN (SELECT AVG(order_sales)AS avg_orders_value FROM (SELECT order_id, SUM(sales) AS order_sales FROM orders GROUP BY order_id) AS orders_aggregated) B ON 1=1;
+```
+* CTE(Common Table Expression)(Similar to Subquery, Readability is Good in CTEs, It makes query simiplar to look, We can use it multiple times)
 ```sql
 
 ```
+
