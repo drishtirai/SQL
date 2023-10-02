@@ -277,6 +277,33 @@ SELECT A.*, B.* FROM (SELECT order_id, SUM(sales) AS order_sales FROM orders GRO
 ```
 * CTE(Common Table Expression)(Similar to Subquery, Readability is Good in CTEs, It makes query simiplar to look, We can use it multiple times)
 ```sql
+WITH avg_students AS (
+SELECT district_id, AVG(students) as average_students
+FROM schools
+GROUP BY district_id)
+SELECT s.school_name, s.district_id, avg.average_students
+FROM schools s
+JOIN avg_students avg
+ON s.district_id = avg.district_id;
+```
+* Window Analytical Functions - Rank(), Row_Number(), Lead(), Lag,() Dense_Rank()Etc..
+```sql
+SELECT * FROM (SELECT *, row_number() over(PARTITION BY dept_id ORDER BY salary desc) AS rn FROM employee) A WHERE rn <= 2;
+---------------------OR----------------
+---row_number -> will give a unique value to the number, there are no duplicates.
+---rank() -> will give the same rank to the same people and at the same time it will skip the rank.
+---dense_rank() -> same people with the same salary will get the same values but it won't skip the rank.
+WITH cte AS (SELECT *, row_number() over(PARTITION BY dept_id ORDER BY salary desc) AS rn FROM employee) SELECT * FROM cte WHERE rn <= 2;
+SELECT *, row_number() OVER (PARTITION BY dept_id ORDER BY salary desc) AS rn, rank() OVER (PARTITION BY dept_id ORDER BY salary desc) AS rnK FROM employee;
+SELECT *, row_number() OVER (PARTITION BY dept_id ORDER BY salary desc) AS rn, dense_rank() OVER (PARTITION BY dept_id ORDER BY salary desc) AS d_rnK FROM employee;
+SELECT *, lead(emp_id,1) OVER (ORDER BY salary desc) AS lead_emp FROM employee;
+SELECT *, lead(emp_id,3) OVER (ORDER BY salary desc) AS lead_emp FROM employee;
+SELECT *, lead(emp_id,1,5000) OVER (ORDER BY salary desc) AS lead_emp FROM employee;
+SELECT *, lead(emp_id,1) OVER (PARTITION BY dept_id ORDER BY salary desc) AS lead_emp FROM employee;
+SELECT *, lag(emp_id,3) OVER (ORDER BY salary desc) AS lag_emp FROM employee;
+SELECT *, lag(emp_id,1) OVER (PARTITION BY dept_id ORDER BY salary desc) AS lag_emp FROM employee;
+```
+* Aggregation With Window Functions
+```sql
 
 ```
-
