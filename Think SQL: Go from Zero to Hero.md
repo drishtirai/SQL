@@ -307,7 +307,13 @@ SELECT *, lag(emp_id,1) OVER (PARTITION BY dept_id ORDER BY salary desc) AS lag_
 ```sql
 SELECT *,  AVG(salary) OVER(PARTITION BY dept_id) as avg_salary, MAX(salary) OVER(PARTITION BY dept_id) as max_salary FROM employee;
 SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN 5 PRECEDING AND 10 FOLLOWING) as avg_salary FROM employee;
-SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN 5 PRECEDING AND CURRENT_ROW) as avg_salary FROM employee;
-
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) as avg_salary FROM employee;
+------UNBOUNDED -> means all the rows previous to the  current rows.-----
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as avg_salary FROM employee;
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) as avg_salary FROM employee;
+```
+* Procedures And Functions
+---- Procedures are database objects when there are multiple sql queries and you want to run the sql queries together what we can do is we can create procedures and run them.
+```sql
 
 ```
