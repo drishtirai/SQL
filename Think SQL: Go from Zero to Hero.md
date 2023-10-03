@@ -305,5 +305,9 @@ SELECT *, lag(emp_id,1) OVER (PARTITION BY dept_id ORDER BY salary desc) AS lag_
 ```
 * Aggregation With Window Functions
 ```sql
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id) as avg_salary, MAX(salary) OVER(PARTITION BY dept_id) as max_salary FROM employee;
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN 5 PRECEDING AND 10 FOLLOWING) as avg_salary FROM employee;
+SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN 5 PRECEDING AND CURRENT_ROW) as avg_salary FROM employee;
+
 
 ```
