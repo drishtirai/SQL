@@ -28,9 +28,46 @@
 
 ## 1068. Product Sales Analysis 
 
-    SELECT product_name, year, price FROM Sales s JOIN Product p ON s.product_id = p.product_id; 
+    SELECT product_name, year, price 
+    FROM Sales s 
+    JOIN Product p ON s.product_id = p.product_id; 
 
 ## 1581. Customer Who Visited but Did Not Make Any Transactions
 
     
-    
+## 620. Not Boring Movies
+
+    SELECT * FROM Cinema 
+    WHERE ID%2 != 0 AND Description != "boring" 
+    ORDER BY rating DESC;
+
+## 2356. Number of Unique Subjects Taught by Each Teacher
+
+    SELECT teacher_id, COUNT(DISTINCT subject_id) 
+    AS cnt FROM Teacher 
+    GROUP BY teacher_id;
+
+## 619. Biggest Single Number
+
+    SELECT 
+    MAX(num) as num 
+FROM 
+    (
+        SELECT num
+        FROM MyNumbers
+        GROUP BY num
+        HAVING COUNT(num) = 1
+    ) NEW ;
+
+## 1729. Find Followers Count
+
+    SELECT user_id, COUNT(user_id)
+    AS followers_count FROM Followers 
+    GROUP BY user_id 
+    ORDER BY user_id; 
+
+## 596. Classes More Than 5 Students
+
+    SELECT class FROM Courses 
+    GROUP BY class 
+    HAVING COUNT(DISTINCT student) >= 5;
