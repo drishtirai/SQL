@@ -315,5 +315,6 @@ SELECT *,  AVG(salary) OVER(PARTITION BY dept_id ROWS BETWEEN UNBOUNDED PRECEDIN
 * Procedures And Functions
 ---- Procedures are database objects when there are multiple sql queries and you want to run the sql queries together what we can do is we can create procedures and run them.
 ```sql
-
+DROP PROCEDURE spemp;
+CREATE PROCEDURE spemp (@salary int, @dept_id int) AS SELECT * FROM employee WHERE salary > @salary AND dept_id = @dept_id;
 ```
